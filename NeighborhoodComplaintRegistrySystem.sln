@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.34909.67
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCRS-API", "NCRS-API\NCRS-API.csproj", "{6104373A-D07B-4730-A9AF-82BEF2363F78}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NCRS-DB", "NCRS-DB\NCRS-DB.sqlproj", "{89D01EC7-881F-4A7B-90FE-C3589F1D0C97}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6104373A-D07B-4730-A9AF-82BEF2363F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6104373A-D07B-4730-A9AF-82BEF2363F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6104373A-D07B-4730-A9AF-82BEF2363F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6104373A-D07B-4730-A9AF-82BEF2363F78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89D01EC7-881F-4A7B-90FE-C3589F1D0C97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89D01EC7-881F-4A7B-90FE-C3589F1D0C97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89D01EC7-881F-4A7B-90FE-C3589F1D0C97}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{89D01EC7-881F-4A7B-90FE-C3589F1D0C97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89D01EC7-881F-4A7B-90FE-C3589F1D0C97}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89D01EC7-881F-4A7B-90FE-C3589F1D0C97}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD86B946-B8D4-4002-86EE-B0D53B89C323}
+	EndGlobalSection
+EndGlobal
