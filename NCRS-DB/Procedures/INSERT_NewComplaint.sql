@@ -7,6 +7,7 @@
 AS
 	INSERT INTO Complaint
 	(Id, Issuer, Location, CreationDate, Description, Status, Category)
+	OUTPUT Inserted.Id
 	VALUES
 	(NEWID(),
 	(SELECT Id from Tenant WHERE Id = @Issuer),

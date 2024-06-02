@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 
 using NCRS_API.Data;
 
@@ -8,84 +9,116 @@ namespace NCRS_API.Controllers;
 public class NCRSController : Controller
 {
     [HttpPost]
-    public async Task<int> CreateNewComplaint([FromBody]Complaint newComplaint)
+    public async Task<IActionResult> CreateNewComplaint([FromBody]Complaint newComplaint)
     {
-        return await NCRS_DB.InsertNewComplaint(newComplaint);
-    }
-
-    [HttpPost]
-    public async Task<int> CreateNewComplaint([FromBody]Dictionary<string, object> newComplaint)
-    {
-        Complaint constructedComplaint = new()
+        try
         {
-            Issuer = new Tenant() { Id = newComplaint["Issuer"].ToString() },
-            ComplaintLocation = new Apartment() { ApartmentNr = int.Parse(newComplaint["Location"].ToString()) },
-            Description = newComplaint["Description"].ToString(),
-            Status = (Complaint.ComplaintStatus)int.Parse(newComplaint["Status"].ToString()),
-            Category = (Complaint.ComplaintCategory)int.Parse(newComplaint["Category"].ToString())
-        };
-        return await NCRS_DB.InsertNewComplaint(constructedComplaint);
-    }
-
-    [HttpPut]
-    public async Task<int> UpdateComplaintData([FromBody]Dictionary<string, string> updatedComplaintData)
-    {
-        Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaint(updatedComplaintData["Id"]);
-        complaintToUpdate.Description = updatedComplaintData["Description"];
-
-        return await NCRS_DB.UpdateComplaint(complaintToUpdate);
-    }
-
-    [AuthorizeEmployee]
-    [HttpPut]
-    public async Task<int> UpdateComplaintStatus([FromBody]Dictionary<string, object> updatedComplaintData)
-    {
-        Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaint(updatedComplaintData["Id"].ToString());
-        complaintToUpdate.Status = (Complaint.ComplaintStatus)int.Parse(updatedComplaintData["Status"].ToString());
-
-        return await NCRS_DB.UpdateComplaint(complaintToUpdate);
-    }
-
-    [AuthorizeEmployee]
-    [HttpGet]
-    public async Task<List<Complaint>> RetrieveComplaintsByDate([FromQuery]string date)
-    {
-        return await NCRS_DB.RetrieveComplaintsByDate(DateTime.Parse(date));
-    }
-
-    [AuthorizeEmployee]
-    [HttpGet]
-    public async Task<List<Complaint>> RetrieveComplaintsByName([FromQuery]string fullName)
-    {
-        string[] nameParts = fullName.Split(' ');
-
-        string lastName = nameParts[^1];
-        string firstName = "";
-
-        for (int i = 0; i < nameParts.Length - 1; i++)
-        {
-            firstName += nameParts[i];
+            return Ok(await NCRS_DB.InsertNewComplaint(newComplaint));
         }
-
-        Tenant tenant = new()
+        catch (Exception ex)
         {
-            FirstName = firstName,
-            LastName = lastName
-        };
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
 
-        return await NCRS_DB.RetrieveComplaintsByName(tenant);
+    [HttpPut]
+    public async Task<IActionResult> UpdateComplaintData([FromBody]Complaint updatedComplaintData)
+    {
+        try
+        {
+            Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaint(updatedComplaintData.Id);
+            complaintToUpdate.Description = updatedComplaintData.Description;
+
+            return Ok(await NCRS_DB.UpdateComplaint(complaintToUpdate));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [AuthorizeEmployee]
+    [HttpPut]
+    public async Task<IActionResult> UpdateComplaintStatus([FromBody]Complaint updatedComplaintStatus)
+    {
+        try
+        {
+            Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaint(updatedComplaintStatus.Id);
+            complaintToUpdate.Status = updatedComplaintStatus.Status;
+
+            return Ok(await NCRS_DB.UpdateComplaint(complaintToUpdate));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
     }
 
     [AuthorizeEmployee]
     [HttpGet]
-    public async Task<List<Complaint>> RetrieveComplaints()
+    public async Task<IActionResult> RetrieveComplaintsByDate([FromQuery]string date)
     {
-        return await NCRS_DB.RetrieveComplaints();
+        try
+        {
+            return Ok(await NCRS_DB.RetrieveComplaintsByDate(DateTime.Parse(date)));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [AuthorizeEmployee]
+    [HttpGet]
+    public async Task<IActionResult> RetrieveComplaintsByName([FromQuery] string firstName, [FromQuery] string lastName)
+    {
+        try
+        {
+            Tenant tenant = new()
+            {
+                FirstName = firstName,
+                LastName = lastName
+            };
+
+            return Ok(await NCRS_DB.RetrieveComplaintsByName(tenant));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [AuthorizeEmployee]
+    [HttpGet]
+    public async Task<IActionResult> RetrieveComplaints()
+    {
+        try
+        {
+            return Ok(await NCRS_DB.RetrieveComplaints());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
     }
 
     [HttpGet]
-    public async Task<Complaint> RetrieveComplaint([FromQuery]string Id)
+    public async Task<IActionResult> RetrieveComplaint([FromQuery]string Id)
     {
-        return await NCRS_DB.RetrieveComplaint(Id);
+        try
+        {
+            return Ok(await NCRS_DB.RetrieveComplaint(Id));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
     }
 }
