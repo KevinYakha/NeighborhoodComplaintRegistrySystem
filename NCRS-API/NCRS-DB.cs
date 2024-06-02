@@ -29,7 +29,7 @@ public static class NCRS_DB
      * };
      */
 
-    public static async Task<string> InsertNewComplaint(Complaint complaint)
+    public static async Task<string> InsertNewComplaintAsync(Complaint complaint)
     {
         try
         {
@@ -57,7 +57,7 @@ public static class NCRS_DB
         }
     }
 
-    public static async Task<int> UpdateComplaint(Complaint complaintToUpdate)
+    public static async Task<int> UpdateComplaintAsync(Complaint complaintToUpdate)
     {
         try
         {
@@ -79,39 +79,7 @@ public static class NCRS_DB
         }
     }
 
-    public static async Task<List<Complaint>> RetrieveComplaints()
-    {
-        try
-        {
-            return await RetrieveComplaints(new("RETRIEVE_Complaints"));
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-
-    public static async Task<Complaint> RetrieveComplaint(string Id)
-    {
-        try
-        {
-            SQLDatabaseManager.SetConnectionString(builder);
-            SqlCommand cmd = new("RETRIEVE_Complaint")
-            {
-                CommandType = System.Data.CommandType.StoredProcedure
-            };
-
-            cmd.Parameters.AddWithValue("Id", Guid.Parse(Id));
-
-            return (await RetrieveComplaints(cmd)).First();
-        }
-        catch (Exception)
-        {
-            throw;
-        }
-    }
-
-    private static async Task<List<Complaint>> RetrieveComplaints(SqlCommand procedure)
+    private static async Task<List<Complaint>> RetrieveComplaintsAsync(SqlCommand procedure)
     {
         try
         {
@@ -132,8 +100,8 @@ public static class NCRS_DB
                 Complaint singleResult = new()
                 {
                     Id = rd.GetGuid(0).ToString(),
-                    Issuer = await RetrieveTenant(rd.GetGuid(1).ToString()),
-                    ComplaintLocation = await RetrieveApartment(rd.GetInt32(2)),
+                    Issuer = await RetrieveTenantAsync(rd.GetGuid(1).ToString()),
+                    ComplaintLocation = await RetrieveApartmentAsync(rd.GetInt32(2)),
                     CreationDate = rd.GetDateTime(3),
                     Description = rd.GetString(4),
                     Status = (Complaint.ComplaintStatus)rd.GetInt32(5),
@@ -152,7 +120,39 @@ public static class NCRS_DB
         }
     }
 
-    public static async Task<List<Complaint>> RetrieveComplaintsByName(Tenant issuer)
+    public static async Task<List<Complaint>> RetrieveComplaintsAsync()
+    {
+        try
+        {
+            return await RetrieveComplaintsAsync(new("RETRIEVE_Complaints"));
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public static async Task<Complaint> RetrieveComplaintAsync(string Id)
+    {
+        try
+        {
+            SQLDatabaseManager.SetConnectionString(builder);
+            SqlCommand cmd = new("RETRIEVE_Complaint")
+            {
+                CommandType = System.Data.CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("Id", Guid.Parse(Id));
+
+            return (await RetrieveComplaintsAsync(cmd)).First();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public static async Task<List<Complaint>> RetrieveComplaintsByNameAsync(Tenant issuer)
     {
         try
         {
@@ -160,7 +160,7 @@ public static class NCRS_DB
             command.Parameters.AddWithValue("FirstName", issuer.FirstName);
             command.Parameters.AddWithValue("LastName", issuer.LastName);
 
-            return await RetrieveComplaints(command);
+            return await RetrieveComplaintsAsync(command);
         }
         catch (Exception)
         {
@@ -168,14 +168,14 @@ public static class NCRS_DB
         }
     }
 
-    public static async Task<List<Complaint>> RetrieveComplaintsByDate(DateTime creationDate)
+    public static async Task<List<Complaint>> RetrieveComplaintsByDateAsync(DateTime creationDate)
     {
         try
         {
             SqlCommand command = new("RETRIEVE_ComplaintsByDate");
             command.Parameters.AddWithValue("Date", creationDate);
 
-            return await RetrieveComplaints(command);
+            return await RetrieveComplaintsAsync(command);
         }
         catch (Exception)
         {
@@ -183,7 +183,7 @@ public static class NCRS_DB
         }
     }
 
-    public static async Task<Tenant> RetrieveTenant(string Id)
+    public static async Task<Tenant> RetrieveTenantAsync(string Id)
     {
         try
         {
@@ -209,7 +209,7 @@ public static class NCRS_DB
                 Id = rd.GetValue(0).ToString(),
                 FirstName = rd.GetString(1),
                 LastName = rd.GetString(2),
-                Residence = await RetrieveApartment(rd.GetInt32(3))
+                Residence = await RetrieveApartmentAsync(rd.GetInt32(3))
             };
 
             await rd.CloseAsync();
@@ -222,7 +222,7 @@ public static class NCRS_DB
         }
     }
 
-    public static async Task<Apartment> RetrieveApartment(int apartmentNr)
+    public static async Task<Apartment> RetrieveApartmentAsync(int apartmentNr)
     {
         try
         {
@@ -246,7 +246,7 @@ public static class NCRS_DB
             Apartment apartment = new()
             {
                 ApartmentNr = rd.GetInt32(0),
-                Building = await RetrieveBuilding(apartmentNr)
+                Building = await RetrieveBuildingAsync(apartmentNr)
             };
 
             await rd.CloseAsync();
@@ -259,7 +259,7 @@ public static class NCRS_DB
         }
     }
 
-    public static async Task<Building> RetrieveBuilding(int buildingNr)
+    public static async Task<Building> RetrieveBuildingAsync(int buildingNr)
     {
         try
         {

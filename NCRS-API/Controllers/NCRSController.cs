@@ -13,7 +13,7 @@ public class NCRSController : Controller
     {
         try
         {
-            return Ok(await NCRS_DB.InsertNewComplaint(newComplaint));
+            return Ok(await NCRS_DB.InsertNewComplaintAsync(newComplaint));
         }
         catch (Exception ex)
         {
@@ -27,10 +27,10 @@ public class NCRSController : Controller
     {
         try
         {
-            Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaint(updatedComplaintData.Id);
+            Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaintAsync(updatedComplaintData.Id);
             complaintToUpdate.Description = updatedComplaintData.Description;
 
-            return Ok(await NCRS_DB.UpdateComplaint(complaintToUpdate));
+            return Ok(await NCRS_DB.UpdateComplaintAsync(complaintToUpdate));
         }
         catch (Exception ex)
         {
@@ -45,10 +45,10 @@ public class NCRSController : Controller
     {
         try
         {
-            Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaint(updatedComplaintStatus.Id);
+            Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaintAsync(updatedComplaintStatus.Id);
             complaintToUpdate.Status = updatedComplaintStatus.Status;
 
-            return Ok(await NCRS_DB.UpdateComplaint(complaintToUpdate));
+            return Ok(await NCRS_DB.UpdateComplaintAsync(complaintToUpdate));
         }
         catch (Exception ex)
         {
@@ -63,7 +63,7 @@ public class NCRSController : Controller
     {
         try
         {
-            return Ok(await NCRS_DB.RetrieveComplaintsByDate(DateTime.Parse(date)));
+            return Ok(await NCRS_DB.RetrieveComplaintsByDateAsync(DateTime.Parse(date)));
         }
         catch (Exception ex)
         {
@@ -84,7 +84,7 @@ public class NCRSController : Controller
                 LastName = lastName
             };
 
-            return Ok(await NCRS_DB.RetrieveComplaintsByName(tenant));
+            return Ok(await NCRS_DB.RetrieveComplaintsByNameAsync(tenant));
         }
         catch (Exception ex)
         {
@@ -99,7 +99,7 @@ public class NCRSController : Controller
     {
         try
         {
-            return Ok(await NCRS_DB.RetrieveComplaints());
+            return Ok(await NCRS_DB.RetrieveComplaintsAsync());
         }
         catch (Exception ex)
         {
@@ -113,7 +113,7 @@ public class NCRSController : Controller
     {
         try
         {
-            return Ok(await NCRS_DB.RetrieveComplaint(Id));
+            return Ok(await NCRS_DB.RetrieveComplaintAsync(Id));
         }
         catch (Exception ex)
         {
