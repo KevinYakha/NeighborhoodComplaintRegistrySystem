@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DatabaseHelper" Version="1.0.1" />
+    <ProjectReference Include="..\SQLDatabaseHelper\DatabaseHelper.csproj" />
   </ItemGroup>
 
 </Project>
