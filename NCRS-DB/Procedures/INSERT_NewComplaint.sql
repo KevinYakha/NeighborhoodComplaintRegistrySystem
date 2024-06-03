@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[INSERT_NewComplaint]
 	@Issuer UNIQUEIDENTIFIER,
 	@Location INT,
-	@Description VARCHAR(MAX),
+	@Description NVARCHAR(500),
 	@Status INT,
 	@Category INT
 AS
