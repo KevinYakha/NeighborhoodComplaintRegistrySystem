@@ -7,14 +7,14 @@ namespace NCRS_Client;
 
 class Client : HttpClient
 {
-    private Uri _uri = new("https://localhost:port");
+    private string _uri = "https://localhost:7103/NCRS/";
 
     public async Task<HttpResponseMessage> SubmitNewComplaintAsync(Complaint newComplaint)
     {
         try
         {
             HttpClient http = new();
-            Uri uri = new(_uri, "CreateNewComplaint");
+            Uri uri = new(_uri + "CreateNewComplaint");
 
             HttpRequestMessage message = new(HttpMethod.Post, uri);
             message.Content = JsonContent.Create(newComplaint);
@@ -33,7 +33,7 @@ class Client : HttpClient
         try
         {
             HttpClient http = new();
-            Uri uri = new(_uri, "RetrieveTenantByName");
+            Uri uri = new(_uri + "RetrieveTenantByName");
 
             HttpRequestMessage message = new(HttpMethod.Get, uri);
             message.Content = JsonContent.Create(tenant);
@@ -41,7 +41,8 @@ class Client : HttpClient
 
             if (response.IsSuccessStatusCode)
             {
-                return await response.Content.ReadFromJsonAsync<Tenant>();
+                Tenant result = await response.Content.ReadFromJsonAsync<Tenant>();
+                return result;
             }
 
             return new();
@@ -58,7 +59,7 @@ class Client : HttpClient
         try
         {
             HttpClient http = new();
-            Uri uri = new(_uri, "RetrieveApartment");
+            Uri uri = new(_uri + "RetrieveApartment");
 
             HttpRequestMessage message = new(HttpMethod.Get, uri);
             message.Content = JsonContent.Create(apartment);

@@ -29,26 +29,26 @@ namespace NCRS_Client
             e.Handled = regex.IsMatch(e.Text);
         }
 
-        private void bt_submit_Click(object sender, RoutedEventArgs e)
+        private async void bt_submit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                Tenant issuer = new()
+                {
+                    FirstName = tb_first_name.Text,
+                    LastName = tb_last_name.Text
+                };
+                issuer = await _httpClient.FindTenantByNameAsync(issuer);
+
                 Complaint newComplaint = new()
                 {
-                    Issuer = new() { FirstName = tb_first_name.Text, LastName = tb_last_name.Text },
+                    Issuer = issuer,
                     ComplaintLocation = new() { ApartmentNr = int.Parse(tb_apartment_nr.Text) },
                     Description = tb_description.Text,
-                    Category = (Complaint.ComplaintCategory)int.Parse(cb_category.Text)
+                    Category = (Complaint.ComplaintCategory)cb_category.SelectedIndex
                 };
 
-                HttpResponseMessage response;
-                Task.Run(() =>
-                {
-                    Dispatcher.InvokeAsync(async () =>
-                    {
-                        response = await _httpClient.SubmitNewComplaintAsync(newComplaint);
-                    });
-                });
+                HttpResponseMessage response = await _httpClient.SubmitNewComplaintAsync(newComplaint);
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace NCRS_Client
                 {
                     Dispatcher.InvokeAsync(async () =>
                     {
-                        await _httpClient.FindTenantByNameAsync(tenant);
+                        tenant = await _httpClient.FindTenantByNameAsync(tenant);
                     });
                 });
             }
