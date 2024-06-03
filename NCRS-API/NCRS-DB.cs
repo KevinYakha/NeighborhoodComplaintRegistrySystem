@@ -222,6 +222,46 @@ public static class NCRS_DB
         }
     }
 
+    public static async Task<Tenant> RetrieveTenantByNameAsync(Tenant tenant)
+    {
+        try
+        {
+            SQLDatabaseManager.SetConnectionString(builder);
+            SqlCommand procedure = new("RETRIEVE_TenantByName")
+            {
+                CommandType = System.Data.CommandType.StoredProcedure
+            };
+
+            procedure.Parameters.AddWithValue("FirstName", tenant.FirstName);
+            procedure.Parameters.AddWithValue("LastName", tenant.LastName);
+
+            using SqlDataReader rd = await SQLDatabaseManager.ExecuteReaderAsync(procedure);
+
+            if (rd == null || !rd.HasRows)
+            {
+                return new();
+            }
+
+            rd.ReadAsync();
+
+            Tenant result = new()
+            {
+                Id = rd.GetValue(0).ToString(),
+                FirstName = rd.GetString(1),
+                LastName = rd.GetString(2),
+                Residence = await RetrieveApartmentAsync(rd.GetInt32(3))
+            };
+
+            await rd.CloseAsync();
+            procedure.Connection.Close();
+            return result;
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public static async Task<Apartment> RetrieveApartmentAsync(int apartmentNr)
     {
         try
