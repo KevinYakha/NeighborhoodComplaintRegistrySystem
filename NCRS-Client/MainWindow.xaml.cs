@@ -49,6 +49,28 @@ namespace NCRS_Client
                 };
 
                 HttpResponseMessage response = await _httpClient.SubmitNewComplaintAsync(newComplaint);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    tb_submit_connectionfailure.Visibility = Visibility.Hidden;
+                    tb_submit_success.Visibility = Visibility.Hidden;
+                    tb_submit_failure.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    tb_submit_connectionfailure.Visibility = Visibility.Hidden;
+                    tb_submit_failure.Visibility = Visibility.Hidden;
+                    tb_submit_success.Visibility = Visibility.Visible;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                if(ex.HttpRequestError == HttpRequestError.ConnectionError)
+                {
+                    tb_submit_success.Visibility = Visibility.Hidden;
+                    tb_submit_failure.Visibility = Visibility.Hidden;
+                    tb_submit_connectionfailure.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {
@@ -56,7 +78,7 @@ namespace NCRS_Client
             }
         }
 
-        private void bt_find_issuer_Click(object sender, RoutedEventArgs e)
+        private async void bt_find_issuer_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -65,13 +87,29 @@ namespace NCRS_Client
                     FirstName = tb_first_name.Text,
                     LastName = tb_last_name.Text
                 };
-                Task.Run(() =>
+                tenant = await _httpClient.FindTenantByNameAsync(tenant);
+
+                if (tenant.Id == null)
                 {
-                    Dispatcher.InvokeAsync(async () =>
-                    {
-                        tenant = await _httpClient.FindTenantByNameAsync(tenant);
-                    });
-                });
+                    tb_issuer_connectionfailure.Visibility = Visibility.Hidden;
+                    tb_issuer_found.Visibility = Visibility.Hidden;
+                    tb_issuer_notfound.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    tb_issuer_connectionfailure.Visibility = Visibility.Hidden;
+                    tb_issuer_notfound.Visibility = Visibility.Hidden;
+                    tb_issuer_found.Visibility = Visibility.Visible;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                if(ex.HttpRequestError == HttpRequestError.ConnectionError)
+                {
+                    tb_issuer_notfound.Visibility = Visibility.Hidden;
+                    tb_issuer_found.Visibility = Visibility.Hidden;
+                    tb_issuer_connectionfailure.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {
@@ -79,21 +117,44 @@ namespace NCRS_Client
             }
         }
 
-        private void bt_find_location_Click(object sender, RoutedEventArgs e)
+        private async void bt_find_location_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                if (!int.TryParse(tb_apartment_nr.Text, out int apartmentNr))
+                {
+                    tb_location_connectionfailure.Visibility = Visibility.Hidden;
+                    tb_location_found.Visibility = Visibility.Hidden;
+                    tb_location_notfound.Visibility = Visibility.Visible;
+                    return;
+                }
                 Apartment apartment = new()
                 {
-                    ApartmentNr = int.Parse(tb_apartment_nr.Text)
+                    ApartmentNr = apartmentNr
                 };
-                Task.Run(() =>
+                await _httpClient.FindApartment(apartment);
+
+                if (apartment.ApartmentNr == 0)
                 {
-                    Dispatcher.InvokeAsync(async () =>
-                    {
-                        await _httpClient.FindApartment(apartment);
-                    });
-                });
+                    tb_location_connectionfailure.Visibility = Visibility.Hidden;
+                    tb_location_found.Visibility = Visibility.Hidden;
+                    tb_location_notfound.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    tb_location_connectionfailure.Visibility = Visibility.Hidden;
+                    tb_location_notfound.Visibility = Visibility.Hidden;
+                    tb_location_found.Visibility = Visibility.Visible;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                if(ex.HttpRequestError == HttpRequestError.ConnectionError)
+                {
+                    tb_location_notfound.Visibility = Visibility.Hidden;
+                    tb_location_found.Visibility = Visibility.Hidden;
+                    tb_location_connectionfailure.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {

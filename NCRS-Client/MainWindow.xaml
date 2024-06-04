@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:NCRS_Client"
         mc:Ignorable="d"
         ResizeMode="NoResize"
-        Title="NCRS" Height="525" Width="400">
+        Title="NCRS" Height="550" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -35,13 +35,31 @@
                 <TextBox x:Name="tb_first_name" MaxLength="50" Grid.Row="1" Grid.Column="0" Margin="0, 0, 10, 0"/>
                 <TextBox x:Name="tb_last_name" MaxLength="50" Grid.Row="1" Grid.Column="1"/>
             </Grid>
-            <Button x:Name="bt_find_issuer" Click="bt_find_issuer_Click" Content="Find"
-                    HorizontalAlignment="Left" Margin="0, 5, 0, 0" Width="50"/>
+            <Grid Margin="0, 5, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="bt_find_issuer" Click="bt_find_issuer_Click" Grid.Column="0"
+                        Content="Find" HorizontalAlignment="Left" Width="50"/>
+                <TextBlock x:Name="tb_issuer_found" Grid.Column="1" Text="Found" Foreground="Green" Visibility="Hidden"/>
+                <TextBlock x:Name="tb_issuer_notfound" Grid.Column="1" Text="Not Found" Foreground="Red" Visibility="Hidden"/>
+                <TextBlock x:Name="tb_issuer_connectionfailure" Grid.Column="1" Text="Failed to connect" Foreground="Red" Visibility="Hidden"/>
+            </Grid>
 
             <Label Content="Complaint Location" Margin="0, 10, 0, 0"/>
             <TextBox x:Name="tb_apartment_nr" MaxLength="6" PreviewTextInput="tb_apartment_nr_PreviewTextInput"/>
-            <Button x:Name="bt_find_location" Click="bt_find_location_Click" Content="Find"
-                    HorizontalAlignment="Left" Margin="0, 5, 0, 0" Width="50"/>
+            <Grid Margin="0, 5, 0, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="bt_find_location" Click="bt_find_location_Click" Content="Find"
+                    HorizontalAlignment="Left" Width="50"/>
+                <TextBlock x:Name="tb_location_found" Grid.Column="1" Text="Found" Foreground="Green" Visibility="Hidden"/>
+                <TextBlock x:Name="tb_location_notfound" Grid.Column="1" Text="Not Found" Foreground="Red" Visibility="Hidden"/>
+                <TextBlock x:Name="tb_location_connectionfailure" Grid.Column="1" Text="Failed to connect" Foreground="Red" Visibility="Hidden"/>
+            </Grid>
 
             <Label Content="Description" Margin="0, 10, 0, 0"/>
             <TextBox x:Name="tb_description" MaxLength="500"
@@ -52,7 +70,12 @@
             <ComboBox x:Name="cb_category"/>
 
             <Button x:Name="bt_submit" Content="Submit" Click="bt_submit_Click"
-                    HorizontalAlignment="Center" Margin="0, 20, 0, 0" Width="50"/>
+                    HorizontalAlignment="Center" Margin="0, 20, 0, 5" Width="50"/>
+            <Grid>
+                <TextBlock x:Name="tb_submit_success" Text="Ok" Foreground="Green" Visibility="Hidden" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="tb_submit_failure" Text="Failed to submit" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="tb_submit_connectionfailure" Text="Failed to connect" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Center"/>
+            </Grid>
         </StackPanel>
     </Grid>
 </Window>
