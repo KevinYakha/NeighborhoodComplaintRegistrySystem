@@ -16,10 +16,7 @@ class Client : HttpClient
             HttpClient http = new();
             Uri uri = new(_uri + "CreateNewComplaint");
 
-            HttpRequestMessage message = new(HttpMethod.Post, uri);
-            message.Content = JsonContent.Create(newComplaint);
-
-            return await http.SendAsync(message);
+            return await http.PostAsJsonAsync(uri, newComplaint);
         }
         catch (Exception)
         {
@@ -29,7 +26,6 @@ class Client : HttpClient
 
     public async Task<Tenant> FindTenantByNameAsync(Tenant tenant)
     {
-
         try
         {
             HttpClient http = new();
@@ -55,7 +51,6 @@ class Client : HttpClient
 
     public async Task<Apartment> FindApartment(Apartment apartment)
     {
-
         try
         {
             HttpClient http = new();

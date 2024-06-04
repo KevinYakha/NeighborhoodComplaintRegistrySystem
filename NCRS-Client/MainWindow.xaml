@@ -70,7 +70,7 @@
             <ComboBox x:Name="cb_category"/>
 
             <Button x:Name="bt_submit" Content="Submit" Click="bt_submit_Click"
-                    HorizontalAlignment="Center" Margin="0, 20, 0, 5" Width="50"/>
+                    HorizontalAlignment="Center" Margin="0, 20, 0, 5" Width="65"/>
             <Grid>
                 <TextBlock x:Name="tb_submit_success" Text="Ok" Foreground="Green" Visibility="Hidden" HorizontalAlignment="Center"/>
                 <TextBlock x:Name="tb_submit_failure" Text="Failed to submit" Foreground="Red" Visibility="Hidden" HorizontalAlignment="Center"/>
