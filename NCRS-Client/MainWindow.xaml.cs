@@ -1,6 +1,9 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 
 using NCRS_API.Data;
 
@@ -23,6 +26,21 @@ namespace NCRS_Client
             }
         }
 
+        public static void AdjustStatusLine(List<Tuple<TextBlock, HttpStatusCode>> textBlockStatusTuple, HttpStatusCode statusCode)
+        {
+            foreach (Tuple<TextBlock, HttpStatusCode> statusTuple in textBlockStatusTuple)
+            {
+                if (statusTuple.Item2 == statusCode)
+                {
+                    statusTuple.Item1.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    statusTuple.Item1.Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
         private void tb_apartment_nr_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             Regex regex = new("[^0-9]+");
@@ -33,12 +51,28 @@ namespace NCRS_Client
         {
             try
             {
+                List<Tuple<TextBlock, HttpStatusCode>> statusLine = new()
+                {
+                    new(tb_submit_success, HttpStatusCode.OK),
+                    new(tb_submit_failure, HttpStatusCode.NoContent),
+                    new(tb_submit_failure, HttpStatusCode.RequestTimeout)
+                };
+
                 Tenant issuer = new()
                 {
                     FirstName = tb_first_name.Text,
                     LastName = tb_last_name.Text
                 };
-                issuer = await _httpClient.FindTenantByNameAsync(issuer);
+
+                HttpResponseMessage response = await _httpClient.FindTenantByNameAsync(issuer);
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    AdjustStatusLine(statusLine, response.StatusCode);
+                    return;
+                }
+
+                issuer = await response.Content.ReadFromJsonAsync<Tenant>();
 
                 Complaint newComplaint = new()
                 {
@@ -48,29 +82,9 @@ namespace NCRS_Client
                     Category = (Complaint.ComplaintCategory)cb_category.SelectedIndex
                 };
 
-                HttpResponseMessage response = await _httpClient.SubmitNewComplaintAsync(newComplaint);
+                response = await _httpClient.SubmitNewComplaintAsync(newComplaint);
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    tb_submit_connectionfailure.Visibility = Visibility.Hidden;
-                    tb_submit_success.Visibility = Visibility.Hidden;
-                    tb_submit_failure.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    tb_submit_connectionfailure.Visibility = Visibility.Hidden;
-                    tb_submit_failure.Visibility = Visibility.Hidden;
-                    tb_submit_success.Visibility = Visibility.Visible;
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                if(ex.HttpRequestError == HttpRequestError.ConnectionError)
-                {
-                    tb_submit_success.Visibility = Visibility.Hidden;
-                    tb_submit_failure.Visibility = Visibility.Hidden;
-                    tb_submit_connectionfailure.Visibility = Visibility.Visible;
-                }
+                AdjustStatusLine(statusLine, response.StatusCode);
             }
             catch (Exception ex)
             {
@@ -82,34 +96,22 @@ namespace NCRS_Client
         {
             try
             {
+                List<Tuple<TextBlock, HttpStatusCode>> statusLine = new()
+                {
+                    new(tb_issuer_found, HttpStatusCode.OK),
+                    new(tb_issuer_notfound, HttpStatusCode.NoContent),
+                    new(tb_issuer_connectionfailure, HttpStatusCode.RequestTimeout)
+                };
+
                 Tenant tenant = new()
                 {
                     FirstName = tb_first_name.Text,
                     LastName = tb_last_name.Text
                 };
-                tenant = await _httpClient.FindTenantByNameAsync(tenant);
 
-                if (tenant.Id == null)
-                {
-                    tb_issuer_connectionfailure.Visibility = Visibility.Hidden;
-                    tb_issuer_found.Visibility = Visibility.Hidden;
-                    tb_issuer_notfound.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    tb_issuer_connectionfailure.Visibility = Visibility.Hidden;
-                    tb_issuer_notfound.Visibility = Visibility.Hidden;
-                    tb_issuer_found.Visibility = Visibility.Visible;
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                if(ex.HttpRequestError == HttpRequestError.ConnectionError)
-                {
-                    tb_issuer_notfound.Visibility = Visibility.Hidden;
-                    tb_issuer_found.Visibility = Visibility.Hidden;
-                    tb_issuer_connectionfailure.Visibility = Visibility.Visible;
-                }
+                HttpResponseMessage response = await _httpClient.FindTenantByNameAsync(tenant);
+
+                AdjustStatusLine(statusLine, response.StatusCode);
             }
             catch (Exception ex)
             {
@@ -121,6 +123,13 @@ namespace NCRS_Client
         {
             try
             {
+                List<Tuple<TextBlock, HttpStatusCode>> statusLine = new()
+                {
+                    new(tb_location_found, HttpStatusCode.OK),
+                    new(tb_location_notfound, HttpStatusCode.NoContent),
+                    new(tb_location_connectionfailure, HttpStatusCode.RequestTimeout)
+                };
+
                 if (!int.TryParse(tb_apartment_nr.Text, out int apartmentNr))
                 {
                     tb_location_connectionfailure.Visibility = Visibility.Hidden;
@@ -132,29 +141,10 @@ namespace NCRS_Client
                 {
                     ApartmentNr = apartmentNr
                 };
-                await _httpClient.FindApartment(apartment);
 
-                if (apartment.ApartmentNr == 0)
-                {
-                    tb_location_connectionfailure.Visibility = Visibility.Hidden;
-                    tb_location_found.Visibility = Visibility.Hidden;
-                    tb_location_notfound.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    tb_location_connectionfailure.Visibility = Visibility.Hidden;
-                    tb_location_notfound.Visibility = Visibility.Hidden;
-                    tb_location_found.Visibility = Visibility.Visible;
-                }
-            }
-            catch (HttpRequestException ex)
-            {
-                if(ex.HttpRequestError == HttpRequestError.ConnectionError)
-                {
-                    tb_location_notfound.Visibility = Visibility.Hidden;
-                    tb_location_found.Visibility = Visibility.Hidden;
-                    tb_location_connectionfailure.Visibility = Visibility.Visible;
-                }
+                HttpResponseMessage response = await _httpClient.FindApartment(apartment);
+
+                AdjustStatusLine(statusLine, response.StatusCode);
             }
             catch (Exception ex)
             {
