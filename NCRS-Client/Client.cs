@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 
 using NCRS_API.Data;
@@ -18,13 +19,17 @@ class Client : HttpClient
 
             return await http.PostAsJsonAsync(uri, newComplaint);
         }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
         catch (Exception)
         {
             throw;
         }
     }
 
-    public async Task<Tenant> FindTenantByNameAsync(Tenant tenant)
+    public async Task<HttpResponseMessage> FindTenantByNameAsync(Tenant tenant)
     {
         try
         {
@@ -33,15 +38,12 @@ class Client : HttpClient
 
             HttpRequestMessage message = new(HttpMethod.Get, uri);
             message.Content = JsonContent.Create(tenant);
-            HttpResponseMessage response = await http.SendAsync(message);
 
-            if (response.IsSuccessStatusCode)
-            {
-                Tenant result = await response.Content.ReadFromJsonAsync<Tenant>();
-                return result;
-            }
-
-            return new();
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
         }
         catch (Exception)
         {
@@ -49,7 +51,7 @@ class Client : HttpClient
         }
     }
 
-    public async Task<Apartment> FindApartment(Apartment apartment)
+    public async Task<HttpResponseMessage> FindApartment(Apartment apartment)
     {
         try
         {
@@ -58,14 +60,12 @@ class Client : HttpClient
 
             HttpRequestMessage message = new(HttpMethod.Get, uri);
             message.Content = JsonContent.Create(apartment);
-            HttpResponseMessage response = await http.SendAsync(message);
 
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadFromJsonAsync<Apartment>();
-            }
-
-            return new();
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
         }
         catch (Exception)
         {

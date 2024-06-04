@@ -42,9 +42,9 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="bt_find_issuer" Click="bt_find_issuer_Click" Grid.Column="0"
                         Content="Find" HorizontalAlignment="Left" Width="50"/>
-                <TextBlock x:Name="tb_issuer_found" Grid.Column="1" Text="Found" Foreground="Green" Visibility="Hidden"/>
-                <TextBlock x:Name="tb_issuer_notfound" Grid.Column="1" Text="Not Found" Foreground="Red" Visibility="Hidden"/>
-                <TextBlock x:Name="tb_issuer_connectionfailure" Grid.Column="1" Text="Failed to connect" Foreground="Red" Visibility="Hidden"/>
+                <TextBlock x:Name="tb_issuer_found" Grid.Column="1" Text="Found" Foreground="Green" Visibility="Hidden" VerticalAlignment="Center"/>
+                <TextBlock x:Name="tb_issuer_notfound" Grid.Column="1" Text="Not Found" Foreground="Red" Visibility="Hidden" VerticalAlignment="Center"/>
+                <TextBlock x:Name="tb_issuer_connectionfailure" Grid.Column="1" Text="Failed to connect" Foreground="Red" Visibility="Hidden" VerticalAlignment="Center"/>
             </Grid>
 
             <Label Content="Complaint Location" Margin="0, 10, 0, 0"/>
@@ -56,9 +56,9 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="bt_find_location" Click="bt_find_location_Click" Content="Find"
                     HorizontalAlignment="Left" Width="50"/>
-                <TextBlock x:Name="tb_location_found" Grid.Column="1" Text="Found" Foreground="Green" Visibility="Hidden"/>
-                <TextBlock x:Name="tb_location_notfound" Grid.Column="1" Text="Not Found" Foreground="Red" Visibility="Hidden"/>
-                <TextBlock x:Name="tb_location_connectionfailure" Grid.Column="1" Text="Failed to connect" Foreground="Red" Visibility="Hidden"/>
+                <TextBlock x:Name="tb_location_found" Grid.Column="1" Text="Found" Foreground="Green" Visibility="Hidden" VerticalAlignment="Center"/>
+                <TextBlock x:Name="tb_location_notfound" Grid.Column="1" Text="Not Found" Foreground="Red" Visibility="Hidden" VerticalAlignment="Center"/>
+                <TextBlock x:Name="tb_location_connectionfailure" Grid.Column="1" Text="Failed to connect" Foreground="Red" Visibility="Hidden" VerticalAlignment="Center"/>
             </Grid>
 
             <Label Content="Description" Margin="0, 10, 0, 0"/>
