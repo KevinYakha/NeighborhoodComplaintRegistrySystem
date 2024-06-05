@@ -22,11 +22,6 @@ namespace NCRS_Client
             MainFrame.Content = new NewComplaint();
         }
 
-        private void Search_Button_Click(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Content = new Search();
-        }
-
         private void Logout_Button_Click(object sender, RoutedEventArgs e)
         {
             new Login().Show();

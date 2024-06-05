@@ -16,7 +16,6 @@
         <Border Grid.Column="0" BorderBrush="Black"  BorderThickness="0,0,1,0"/>
         <Button Content="Overview" Click="Overview_Button_Click" HorizontalAlignment="Left" Margin="75,72,0,0" VerticalAlignment="Top"/>
         <Button Content="New Complaint" Click="New_Complaint_Button_Click" HorizontalAlignment="Left" Margin="75,158,0,0" VerticalAlignment="Top"/>
-        <Button Content="Search" Click="Search_Button_Click" HorizontalAlignment="Left" Margin="75,244,0,0" VerticalAlignment="Top"/>
         <Button Content="Logout" Click="Logout_Button_Click" HorizontalAlignment="Left" Margin="75,479,0,0" VerticalAlignment="Top"/>
         <Frame x:Name="MainFrame" Grid.Column="1" Source="/Overview.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>

@@ -8,74 +8,112 @@
       d:DesignHeight="550" d:DesignWidth="400"
       Title="Overview">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <ItemsControl x:Name="ic_complaint_entry">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="0,0,0,1">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="120"/>
-                                    <ColumnDefinition MinWidth="120" MaxWidth="280"/>
-                                </Grid.ColumnDefinitions>
-                                <Border BorderBrush="Black" BorderThickness="0,0,1,0">
-                                    <Grid Grid.Column="0" Margin="5">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Name"
+                               HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1"
+                             Height="20" Width="125"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Date"
+                               HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="1"
+                             Height="20" Width="125"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+            </Grid>
+        </Border>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ItemsControl x:Name="ic_complaint_entry">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition MinWidth="120" MaxWidth="280"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border BorderBrush="Black" BorderThickness="0,0,1,0">
+                                        <Grid Grid.Column="0" Margin="5">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Name="label0" MinHeight="{Binding ActualHeight, ElementName=content0}"/>
+                                                <RowDefinition Name="label1" MinHeight="{Binding ActualHeight, ElementName=content1}"/>
+                                                <RowDefinition Name="label2" MinHeight="{Binding ActualHeight, ElementName=content2}"/>
+                                                <RowDefinition Name="label3" MinHeight="{Binding ActualHeight, ElementName=content3}"/>
+                                                <RowDefinition Name="label4" MinHeight="{Binding ActualHeight, ElementName=content4}"/>
+                                                <RowDefinition Name="label5" MinHeight="{Binding ActualHeight, ElementName=content5}"/>
+                                                <RowDefinition Name="label6" MinHeight="{Binding ActualHeight, ElementName=content6}"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="ID" HorizontalAlignment="Right" Grid.Row="0"/>
+                                            <TextBlock Text="Status" HorizontalAlignment="Right" Grid.Row="1"/>
+                                            <TextBlock Text="Creation Date" HorizontalAlignment="Right" Grid.Row="2"/>
+                                            <TextBlock Text="Issuer" HorizontalAlignment="Right" Grid.Row="3"/>
+                                            <TextBlock Text="Complaint Location" HorizontalAlignment="Right" Grid.Row="4"/>
+                                            <TextBlock Text="Category" HorizontalAlignment="Right" Grid.Row="5"/>
+                                            <TextBlock Text="Description" HorizontalAlignment="Right" Grid.Row="6"/>
+                                        </Grid>
+                                    </Border>
+                                    <Grid Grid.Column="1" Margin="5">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition Name="label0" MinHeight="{Binding ActualHeight, ElementName=content0}"/>
-                                            <RowDefinition Name="label1" MinHeight="{Binding ActualHeight, ElementName=content1}"/>
-                                            <RowDefinition Name="label2" MinHeight="{Binding ActualHeight, ElementName=content2}"/>
-                                            <RowDefinition Name="label3" MinHeight="{Binding ActualHeight, ElementName=content3}"/>
-                                            <RowDefinition Name="label4" MinHeight="{Binding ActualHeight, ElementName=content4}"/>
-                                            <RowDefinition Name="label5" MinHeight="{Binding ActualHeight, ElementName=content5}"/>
-                                            <RowDefinition Name="label6" MinHeight="{Binding ActualHeight, ElementName=content6}"/>
+                                            <RowDefinition Name="content0" MinHeight="{Binding ActualHeight, ElementName=label0}"/>
+                                            <RowDefinition Name="content1" MinHeight="{Binding ActualHeight, ElementName=label1}"/>
+                                            <RowDefinition Name="content2" MinHeight="{Binding ActualHeight, ElementName=label2}"/>
+                                            <RowDefinition Name="content3" MinHeight="{Binding ActualHeight, ElementName=label3}"/>
+                                            <RowDefinition Name="content4" MinHeight="{Binding ActualHeight, ElementName=label4}"/>
+                                            <RowDefinition Name="content5" MinHeight="{Binding ActualHeight, ElementName=label5}"/>
+                                            <RowDefinition Name="content6" MinHeight="{Binding ActualHeight, ElementName=label6}"/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Text="ID" HorizontalAlignment="Right" Grid.Row="0"/>
-                                        <TextBlock Text="Status" HorizontalAlignment="Right" Grid.Row="1"/>
-                                        <TextBlock Text="Creation Date" HorizontalAlignment="Right" Grid.Row="2"/>
-                                        <TextBlock Text="Issuer" HorizontalAlignment="Right" Grid.Row="3"/>
-                                        <TextBlock Text="Complaint Location" HorizontalAlignment="Right" Grid.Row="4"/>
-                                        <TextBlock Text="Category" HorizontalAlignment="Right" Grid.Row="5"/>
-                                        <TextBlock Text="Description" HorizontalAlignment="Right" Grid.Row="6"/>
+                                        <TextBlock Text="{Binding Id}" TextWrapping="Wrap" Grid.Row="0"/>
+                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Grid.Row="1"/>
+                                        <TextBlock Text="{Binding CreationDate}" TextWrapping="Wrap" Grid.Row="2"/>
+                                        <TextBlock Grid.Row="3">
+                                            <Run Text="{Binding Issuer.FirstName}"/>
+                                            <Run Text="{Binding Issuer.LastName}"/>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding ComplaintLocation.ApartmentNr}" TextWrapping="Wrap" Grid.Row="4"/>
+                                        <TextBlock Text="{Binding Category}" TextWrapping="Wrap" Grid.Row="5"/>
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Grid.Row="6"/>
                                     </Grid>
-                                </Border>
-                                <Grid Grid.Column="1" Margin="5">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Name="content0" MinHeight="{Binding ActualHeight, ElementName=label0}"/>
-                                        <RowDefinition Name="content1" MinHeight="{Binding ActualHeight, ElementName=label1}"/>
-                                        <RowDefinition Name="content2" MinHeight="{Binding ActualHeight, ElementName=label2}"/>
-                                        <RowDefinition Name="content3" MinHeight="{Binding ActualHeight, ElementName=label3}"/>
-                                        <RowDefinition Name="content4" MinHeight="{Binding ActualHeight, ElementName=label4}"/>
-                                        <RowDefinition Name="content5" MinHeight="{Binding ActualHeight, ElementName=label5}"/>
-                                        <RowDefinition Name="content6" MinHeight="{Binding ActualHeight, ElementName=label6}"/>
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Text="{Binding Id}" TextWrapping="Wrap" Grid.Row="0"/>
-                                    <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Grid.Row="1"/>
-                                    <TextBlock Text="{Binding CreationDate}" TextWrapping="Wrap" Grid.Row="2"/>
-                                    <TextBlock Grid.Row="3">
-                                        <Run Text="{Binding Issuer.FirstName}"/>
-                                        <Run Text="{Binding Issuer.LastName}"/>
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding ComplaintLocation.ApartmentNr}" TextWrapping="Wrap" Grid.Row="4"/>
-                                    <TextBlock Text="{Binding Category}" TextWrapping="Wrap" Grid.Row="5"/>
-                                    <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Grid.Row="6"/>
                                 </Grid>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <TextBlock x:Name="tb_loading_content" Text="Loading..." Visibility="Visible"
-                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock x:Name="tb_loading_failure" Text="Failed to load"
-                     Visibility="Hidden" Foreground="Red"
-                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBlock x:Name="tb_loading_timeout" Text="The connection has timed out"
-                     Visibility="Hidden" Foreground="Red"
-                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Grid>
-    </ScrollViewer>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+        <TextBlock x:Name="tb_loading_content" Text="Loading..." Grid.Row="1"
+                   Visibility="Visible"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="tb_loading_failure" Text="Failed to load" Grid.Row="1"
+                   Visibility="Hidden" Foreground="Red"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="tb_loading_timeout" Text="The connection has timed out" Grid.Row="1"
+                   Visibility="Hidden" Foreground="Red"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
 </Page>
