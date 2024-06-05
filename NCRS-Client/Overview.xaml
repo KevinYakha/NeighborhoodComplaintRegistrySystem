@@ -8,7 +8,52 @@
       d:DesignHeight="550" d:DesignWidth="400"
       Title="Overview">
 
-    <Grid>
-        <TextBlock Text="Overview"/>
-    </Grid>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <ItemsControl x:Name="ic_complaint_entry">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="Black" BorderThickness="0,0,1,0">
+                                    <Grid Grid.Column="0" Margin="5">
+                                        <StackPanel>
+                                            <TextBlock Text="ID" HorizontalAlignment="Right"/>
+                                            <TextBlock Text="Status" HorizontalAlignment="Right"/>
+                                            <TextBlock Text="Creation Date" HorizontalAlignment="Right"/>
+                                            <TextBlock Text="Issuer" HorizontalAlignment="Right"/>
+                                            <TextBlock Text="Complaint Location" HorizontalAlignment="Right"/>
+                                            <TextBlock Text="Category" HorizontalAlignment="Right"/>
+                                            <TextBlock Text="Description" HorizontalAlignment="Right"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <Grid Grid.Column="1" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Id}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Status}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding CreationDate}" TextWrapping="Wrap"/>
+                                        <TextBlock>
+                                    <Run Text="{Binding Issuer.FirstName}"/>
+                                    <Run Text="{Binding Issuer.LastName}"/>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding ComplaintLocation.ApartmentNr}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Category}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </ScrollViewer>
 </Page>

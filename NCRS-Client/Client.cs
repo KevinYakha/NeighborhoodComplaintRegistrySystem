@@ -72,4 +72,26 @@ class Client : HttpClient
             throw;
         }
     }
+
+    public async Task<HttpResponseMessage> RetrieveAllComplaints()
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaints");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            message.Headers.Add("Token", "EmployeeToken");
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
 }

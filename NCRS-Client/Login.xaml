@@ -11,7 +11,7 @@
     <Grid>
         <Button Click="Login_Button_Click" Content="Login" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top"/>
         <TextBox HorizontalAlignment="Center" Margin="0,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="0,155,0,0"/>
+        <PasswordBox HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,155,0,0"/>
         <Label Content="Email" HorizontalAlignment="Left" Margin="140,78,0,0" VerticalAlignment="Top"/>
         <Label Content="Password" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Center"/>
         <Label Content="NCRS Login" HorizontalAlignment="Center" Margin="0,24,0,0" VerticalAlignment="Top"/>
