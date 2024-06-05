@@ -5,45 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:NCRS_Client"
       mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="400"
+      d:DesignHeight="530" d:DesignWidth="700"
+      MinHeight="30" MinWidth="700"
       Title="Overview">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Border BorderBrush="Black" BorderThickness="0,0,0,1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Name"
-                               HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"
-                             Height="20" Width="125"
-                             HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </Grid>
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Date"
-                               HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="1"
-                             Height="20" Width="125"
-                             HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                </Grid>
-            </Grid>
-        </Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -56,7 +23,7 @@
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="120"/>
-                                        <ColumnDefinition MinWidth="120" MaxWidth="280"/>
+                                        <ColumnDefinition MinWidth="120"/>
                                     </Grid.ColumnDefinitions>
                                     <Border BorderBrush="Black" BorderThickness="0,0,1,0">
                                         <Grid Grid.Column="0" Margin="5">
@@ -92,8 +59,8 @@
                                         <TextBlock Text="{Binding Status}" TextWrapping="Wrap" Grid.Row="1"/>
                                         <TextBlock Text="{Binding CreationDate}" TextWrapping="Wrap" Grid.Row="2"/>
                                         <TextBlock Grid.Row="3">
-                                            <Run Text="{Binding Issuer.FirstName}"/>
-                                            <Run Text="{Binding Issuer.LastName}"/>
+                                        <Run Text="{Binding Issuer.FirstName}"/>
+                                        <Run Text="{Binding Issuer.LastName}"/>
                                         </TextBlock>
                                         <TextBlock Text="{Binding ComplaintLocation.ApartmentNr}" TextWrapping="Wrap" Grid.Row="4"/>
                                         <TextBlock Text="{Binding Category}" TextWrapping="Wrap" Grid.Row="5"/>
@@ -115,5 +82,6 @@
         <TextBlock x:Name="tb_loading_timeout" Text="The connection has timed out" Grid.Row="1"
                    Visibility="Hidden" Foreground="Red"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                   
     </Grid>
 </Page>

@@ -7,16 +7,75 @@
         xmlns:local="clr-namespace:NCRS_Client"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
-        Title="NCRS" Height="550" Width="600">
+        Title="NCRS" Height="600" Width="700"
+        MinWidth="700" MinHeight="100">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Border Grid.Column="0" BorderBrush="Black"  BorderThickness="0,0,1,0"/>
-        <Button Content="Overview" Click="Overview_Button_Click" HorizontalAlignment="Left" Margin="75,72,0,0" VerticalAlignment="Top"/>
-        <Button Content="New Complaint" Click="New_Complaint_Button_Click" HorizontalAlignment="Left" Margin="75,158,0,0" VerticalAlignment="Top"/>
-        <Button Content="Logout" Click="Logout_Button_Click" HorizontalAlignment="Left" Margin="75,479,0,0" VerticalAlignment="Top"/>
-        <Frame x:Name="MainFrame" Grid.Column="1" Source="/Overview.xaml" NavigationUIVisibility="Hidden"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" BorderBrush="Black" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="240"/>
+                    <ColumnDefinition MinWidth="175"/>
+                    <ColumnDefinition MinWidth="270"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="80"/>
+                        <ColumnDefinition MinWidth="80"/>
+                        <ColumnDefinition MinWidth="80"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" x:Name="btn_Logout" Content="Logout" Click="btn_Logout_Click" Width="75"/>
+                    <Button Grid.Column="1" x:Name="btn_Refresh" Content="Refresh" Click="btn_Refresh_Click" Width="75"/>
+                    <Button Grid.Column="2" x:Name="btn_NewComplaint" Click="btn_NewComplaint_Click" Width="75">
+                        <TextBlock Text="New Complaint" TextWrapping="Wrap" TextAlignment="Center"/>
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1" Name="HeaderNameSearch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="50"/>
+                        <ColumnDefinition MinWidth="{Binding ActualWidth, ElementName=tb_name_search}"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Name"
+                               HorizontalAlignment="Right" VerticalAlignment="Center"
+                               Margin="5"/>
+                    <TextBox Name="tb_name_search" Grid.Column="1"
+                             Height="20" Width="125"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Grid.Column="2" Name="HeaderDateSearch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="80"/>
+                        <ColumnDefinition MinWidth="190"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" x:Name="btn_Search" Content="Search" Click="btn_Search_Click" Width="75"/>
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="70"/>
+                            <ColumnDefinition MinWidth="120"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" Text="Date From" Name="tb_date_from"
+                                   HorizontalAlignment="Right" VerticalAlignment="Center"
+                                   Margin="5"/>
+                        <DatePicker Grid.Column="1" Grid.Row="0" x:Name="dp_date_from"
+                                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    DisplayDateEnd="{Binding SelectedDate, ElementName=dp_date_to}"/>
+                        <TextBlock Grid.Column="0" Grid.Row="1" Text="Date To" Name="tb_date_to"
+                                   HorizontalAlignment="Right" VerticalAlignment="Center"
+                                   Margin="5"/>
+                        <DatePicker Grid.Column="1" Grid.Row="1" x:Name="dp_date_to"
+                                    HorizontalAlignment="Left" VerticalAlignment="Center"
+                                    SelectedDateChanged="dp_date_to_SelectedDateChanged"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+        <Frame x:Name="MainContentFrame" Grid.Row="1" Source="/Overview.xaml" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

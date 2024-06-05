@@ -18,9 +18,9 @@ namespace NCRS_Client
         public Overview()
         {
             InitializeComponent();
-
             CreateComplaintTableData();
         }
+
         public static void AdjustStatusLine(List<Tuple<TextBlock, HttpStatusCode>> textBlockStatusTuple, HttpStatusCode statusCode)
         {
             foreach (Tuple<TextBlock, HttpStatusCode> statusTuple in textBlockStatusTuple)
@@ -48,6 +48,13 @@ namespace NCRS_Client
                 };
 
                 HttpResponseMessage response = await _httpClient.RetrieveAllComplaints();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    AdjustStatusLine(statusLine, response.StatusCode);
+                    return;
+                }
+
                 List<Complaint> complaints = await response.Content.ReadFromJsonAsync<List<Complaint>>();
 
                 ic_complaint_entry.ItemsSource = complaints;

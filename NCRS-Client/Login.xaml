@@ -9,12 +9,34 @@
         WindowStartupLocation="CenterScreen"
         Title="NCRS Login" Height="300" Width="400">
     <Grid>
-        <Button Click="Login_Button_Click" Content="Login" HorizontalAlignment="Center" Margin="0,203,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <PasswordBox HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" Margin="0,155,0,0"/>
-        <Label Content="Email" HorizontalAlignment="Left" Margin="140,78,0,0" VerticalAlignment="Top"/>
-        <Label Content="Password" HorizontalAlignment="Left" Margin="140,0,0,0" VerticalAlignment="Center"/>
-        <Label Content="NCRS Login" HorizontalAlignment="Center" Margin="0,24,0,0" VerticalAlignment="Top"/>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="120"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="NCRS Login"
+               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Email"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"
+                     TextWrapping="Wrap"  Width="120"/>
+            <Label Grid.Row="2" Content="Password"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <PasswordBox Grid.Row="3"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         Width="120"/>
+        </Grid>
+        <Button Grid.Row="2" Click="Login_Button_Click" Content="Login"
+                HorizontalAlignment="Center" VerticalAlignment="Center"
+                Height="25" Width="50"/>
 
     </Grid>
 </Window>
