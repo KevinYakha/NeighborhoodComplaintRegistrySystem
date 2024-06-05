@@ -1,5 +1,7 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
+using System.Windows;
 using System.Windows.Controls;
 
 using NCRS_API.Data;
@@ -19,24 +21,38 @@ namespace NCRS_Client
 
             CreateComplaintTableData();
         }
+        public static void AdjustStatusLine(List<Tuple<TextBlock, HttpStatusCode>> textBlockStatusTuple, HttpStatusCode statusCode)
+        {
+            foreach (Tuple<TextBlock, HttpStatusCode> statusTuple in textBlockStatusTuple)
+            {
+                if (statusTuple.Item2 == statusCode)
+                {
+                    statusTuple.Item1.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    statusTuple.Item1.Visibility = Visibility.Hidden;
+                }
+            }
+        }
 
         private async void CreateComplaintTableData()
         {
             try
             {
-                /* TODO: Implement status line
                 List<Tuple<TextBlock, HttpStatusCode>> statusLine = new()
                 {
-                    new(success, HttpStatusCode.OK),
-                    new(failure, HttpStatusCode.NoContent),
-                    new(connectionFailure, HttpStatusCode.RequestTimeout)
+                    new(tb_loading_content, HttpStatusCode.Processing),
+                    new(tb_loading_failure, HttpStatusCode.NoContent),
+                    new(tb_loading_timeout, HttpStatusCode.RequestTimeout)
                 };
-                */
 
                 HttpResponseMessage response = await _httpClient.RetrieveAllComplaints();
                 List<Complaint> complaints = await response.Content.ReadFromJsonAsync<List<Complaint>>();
 
                 ic_complaint_entry.ItemsSource = complaints;
+
+                AdjustStatusLine(statusLine, response.StatusCode);
             }
             catch (Exception ex)
             {
