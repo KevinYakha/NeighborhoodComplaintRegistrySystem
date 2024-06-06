@@ -183,6 +183,57 @@ public static class NCRS_DB
         }
     }
 
+    public static async Task<List<Complaint>> RetrieveComplaintsByDateRangeAsync(Tuple<DateTime, DateTime> creationDateRange)
+    {
+        try
+        {
+            SqlCommand command = new("RETRIEVE_ComplaintsByDateRange");
+            command.Parameters.AddWithValue("DateFrom", creationDateRange.Item1);
+            command.Parameters.AddWithValue("DateTo", creationDateRange.Item2);
+
+            return await RetrieveComplaintsAsync(command);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public static async Task<List<Complaint>> RetrieveComplaintsByDateAndNameAsync(DateTime creationDate, Tenant issuer)
+    {
+        try
+        {
+            SqlCommand command = new("RETRIEVE_ComplaintsByDateAndName");
+            command.Parameters.AddWithValue("Date", creationDate);
+            command.Parameters.AddWithValue("FirstName", issuer.FirstName);
+            command.Parameters.AddWithValue("LastName", issuer.LastName);
+
+            return await RetrieveComplaintsAsync(command);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public static async Task<List<Complaint>> RetrieveComplaintsByDateRangeAndNameAsync(Tuple<DateTime, DateTime> creationDateRange, Tenant issuer)
+    {
+        try
+        {
+            SqlCommand command = new("RETRIEVE_ComplaintsByDateAndName");
+            command.Parameters.AddWithValue("DateFrom", creationDateRange.Item1);
+            command.Parameters.AddWithValue("DateTo", creationDateRange.Item2);
+            command.Parameters.AddWithValue("FirstName", issuer.FirstName);
+            command.Parameters.AddWithValue("LastName", issuer.LastName);
+
+            return await RetrieveComplaintsAsync(command);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public static async Task<Tenant> RetrieveTenantAsync(string Id)
     {
         try

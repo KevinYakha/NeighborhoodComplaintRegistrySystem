@@ -140,11 +140,69 @@ public class NCRSController : Controller
 
     [AuthorizeEmployee]
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByDate([FromQuery]string date)
+    public async Task<IActionResult> RetrieveComplaintsByDate([FromBody]DateTime date)
     {
         try
         {
-            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByDateAsync(DateTime.Parse(date));
+            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByDateAsync(date);
+            if (retrievedComplaints == null || retrievedComplaints.Count == 0)
+            {
+                return NoContent();
+            }
+            return Ok(retrievedComplaints);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> RetrieveComplaintsByDateAndName([FromBody]Tuple<DateTime, Tenant> dateAndTime)
+    {
+        try
+        {
+            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByDateAndNameAsync(dateAndTime.Item1, dateAndTime.Item2);
+            if (retrievedComplaints == null || retrievedComplaints.Count == 0)
+            {
+                return NoContent();
+            }
+            return Ok(retrievedComplaints);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [AuthorizeEmployee]
+    [HttpGet]
+    public async Task<IActionResult> RetrieveComplaintsByDateRange([FromBody]Tuple<DateTime, DateTime> dateRange)
+    {
+        try
+        {
+            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByDateRangeAsync(dateRange);
+            if (retrievedComplaints == null || retrievedComplaints.Count == 0)
+            {
+                return NoContent();
+            }
+            return Ok(retrievedComplaints);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> RetrieveComplaintsByDateRangeAndName([FromBody]Tuple<Tuple<DateTime, DateTime>, Tenant> dateRangeAndIssuer)
+    {
+        try
+        {
+            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByDateRangeAndNameAsync(dateRangeAndIssuer.Item1, dateRangeAndIssuer.Item2);
             if (retrievedComplaints == null || retrievedComplaints.Count == 0)
             {
                 return NoContent();

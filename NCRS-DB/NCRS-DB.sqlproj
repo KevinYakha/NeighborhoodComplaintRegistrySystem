@@ -77,6 +77,9 @@
     <Build Include="Procedures\RETRIEVE_Tenant.sql" />
     <Build Include="Procedures\RETRIEVE_Complaint.sql" />
     <Build Include="Procedures\RETRIEVE_TenantByName.sql" />
+    <Build Include="Procedures\RETRIEVE_ComplaintsByDateRange.sql" />
+    <Build Include="Procedures\RETRIEVE_ComplaintsByDateAndName.sql" />
+    <Build Include="Procedures\RETRIEVE_ComplaintsByDateRangeAndName.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NCRS-DB.refactorlog" />
