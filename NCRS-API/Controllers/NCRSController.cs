@@ -39,17 +39,11 @@ public class NCRSController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByName([FromQuery] string firstName, [FromQuery] string lastName)
+    public async Task<IActionResult> RetrieveComplaintsByName([FromBody]Tenant issuer)
     {
         try
         {
-            Tenant tenant = new()
-            {
-                FirstName = firstName,
-                LastName = lastName
-            };
-
-            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByNameAsync(tenant);
+            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByNameAsync(issuer);
             if (retrievedComplaints == null || retrievedComplaints.Count == 0)
             {
                 return NoContent();

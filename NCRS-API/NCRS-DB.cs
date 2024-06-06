@@ -220,7 +220,7 @@ public static class NCRS_DB
     {
         try
         {
-            SqlCommand command = new("RETRIEVE_ComplaintsByDateAndName");
+            SqlCommand command = new("RETRIEVE_ComplaintsByDateRangeAndName");
             command.Parameters.AddWithValue("DateFrom", creationDateRange.Item1);
             command.Parameters.AddWithValue("DateTo", creationDateRange.Item2);
             command.Parameters.AddWithValue("FirstName", issuer.FirstName);

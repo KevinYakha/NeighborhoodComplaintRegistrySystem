@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 
 using NCRS_API.Data;
 
@@ -82,6 +84,120 @@ class Client : HttpClient
 
             HttpRequestMessage message = new(HttpMethod.Get, uri);
             message.Headers.Add("Token", "EmployeeToken");
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<HttpResponseMessage> RetrieveComplaintsByName(Tenant issuer)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaintsByName");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            message.Content = JsonContent.Create(issuer);
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<HttpResponseMessage> RetrieveComplaintsByDate(DateTime date)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaintsByDate");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            message.Headers.Add("Token", "EmployeeToken");
+            message.Content = JsonContent.Create(date);
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<HttpResponseMessage> RetrieveComplaintsByDateAndName(DateTime date, Tenant issuer)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaintsByDateAndName");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            Tuple<DateTime, Tenant> dataTuple = new(date, issuer);
+            message.Content = JsonContent.Create(dataTuple);
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<HttpResponseMessage> RetrieveComplaintsByDateRange(Tuple<DateTime, DateTime> dateRange)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaintsByDateRange");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            message.Headers.Add("Token", "EmployeeToken");
+            message.Content = JsonContent.Create(dateRange);
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<HttpResponseMessage> RetrieveComplaintsByDateRangeAndName(Tuple<DateTime, DateTime> dateRange, Tenant issuer)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaintsByDateRangeAndName");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            Tuple<Tuple<DateTime, DateTime>, Tenant> dataTuple = new(dateRange, issuer);
+            message.Content = JsonContent.Create(dataTuple);
 
             return await http.SendAsync(message);
         }

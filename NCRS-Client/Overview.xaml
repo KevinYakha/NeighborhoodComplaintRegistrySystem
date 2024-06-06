@@ -76,7 +76,7 @@
         <TextBlock x:Name="tb_loading_content" Text="Loading..." Grid.Row="1"
                    Visibility="Visible"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock x:Name="tb_loading_failure" Text="Failed to load" Grid.Row="1"
+        <TextBlock x:Name="tb_loading_failure" Text="No complaints could be found" Grid.Row="1"
                    Visibility="Hidden" Foreground="Red"
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <TextBlock x:Name="tb_loading_timeout" Text="The connection has timed out" Grid.Row="1"
