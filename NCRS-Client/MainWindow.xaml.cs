@@ -44,8 +44,14 @@ namespace NCRS_Client
         {
             try
             {
+                // retrieve full list if there was no input anywhere
+                if (tb_name_search.Text.Length == 0 && !dp_date_from.SelectedDate.HasValue && !dp_date_to.SelectedDate.HasValue)
+                {
+                        MainContentFrame.Content = new Overview();
+                        return;
+                }
                 // search only by name
-                if (tb_name_search.Text.Length > 0 && !dp_date_from.SelectedDate.HasValue && !dp_date_to.SelectedDate.HasValue)
+                else if (tb_name_search.Text.Length > 0 && !dp_date_from.SelectedDate.HasValue && !dp_date_to.SelectedDate.HasValue)
                 {
                     string[] nameToSearch = tb_name_search.Text.Split(' ');
 
