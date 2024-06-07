@@ -12,18 +12,16 @@
     <Grid>
         <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <ItemsControl x:Name="ic_complaint_entry"
-                              MouseLeftButtonUp="ic_complaint_entry_MouseLeftButtonUp">
+                <ItemsControl x:Name="ic_complaint_entry">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
-                                <Grid>
+                            <Border BorderBrush="Black" BorderThickness="2,1,2,1">
+                                <Grid x:Name="gd_complaint_entry"
+                                      MouseLeftButtonUp="gd_complaint_entry_MouseLeftButtonUp"
+                                      MouseEnter="gd_complaint_entry_MouseEnter"
+                                      MouseLeave="gd_complaint_entry_MouseLeave">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="120"/>
+                                        <ColumnDefinition MinWidth="120"/>
                                         <ColumnDefinition MinWidth="120"/>
                                     </Grid.ColumnDefinitions>
                                     <Border BorderBrush="Black" BorderThickness="0,0,1,0">

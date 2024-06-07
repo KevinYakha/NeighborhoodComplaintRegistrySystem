@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 using NCRS_API.Data;
 
@@ -250,18 +251,26 @@ namespace NCRS_Client
             }
         }
 
-        private void ic_complaint_entry_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void gd_complaint_entry_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             try
             {
-                // TODO: throws an exception when clicking on an "Issuer" is of type (Documents.Run)
-                // gets the current element in the list of complaints and opens it up for editing
-                new ManageComplaint((Complaint)((FrameworkElement)e.OriginalSource).DataContext).Show();
+                new ManageComplaint((Complaint)((Grid)sender).DataContext).Show();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        private void gd_complaint_entry_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((Grid)sender).Background = new SolidColorBrush(Colors.LightGray);
+        }
+
+        private void gd_complaint_entry_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            ((Grid)sender).Background = null;
         }
     }
 }

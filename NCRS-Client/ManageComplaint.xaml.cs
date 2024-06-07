@@ -27,11 +27,6 @@ public partial class ManageComplaint : Window
         {
             cb_category.Items.Add((Complaint.ComplaintCategory)i);
         }
-
-        for (int i = 0; i < (int)Complaint.ComplaintStatus.COUNT; i++)
-        {
-            cb_status.Items.Add((Complaint.ComplaintStatus)i);
-        }
     }
 
     public ManageComplaint(Complaint complaint)
@@ -41,6 +36,11 @@ public partial class ManageComplaint : Window
         lb_title.Content = "Update a complaint";
         lb_status.Visibility = Visibility.Visible;
         cb_status.Visibility = Visibility.Visible;
+
+        for (int i = 0; i < (int)Complaint.ComplaintStatus.COUNT; i++)
+        {
+            cb_status.Items.Add((Complaint.ComplaintStatus)i);
+        }
 
         _complaint = complaint;
 
