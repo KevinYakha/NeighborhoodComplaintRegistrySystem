@@ -126,7 +126,7 @@ namespace NCRS_Client
         private void dp_date_to_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             // make sure date from can't be higher than date to
-            if(dp_date_to.SelectedDate < dp_date_from.SelectedDate || !dp_date_from.SelectedDate.HasValue)
+            if (dp_date_to.SelectedDate < dp_date_from.SelectedDate || !dp_date_from.SelectedDate.HasValue)
             {
                 dp_date_from.SelectedDate = dp_date_to.SelectedDate;
             }

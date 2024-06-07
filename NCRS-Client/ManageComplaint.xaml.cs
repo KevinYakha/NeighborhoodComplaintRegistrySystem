@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Eventing.Reader;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.RegularExpressions;
@@ -32,7 +31,7 @@ public partial class ManageComplaint : Window
         for (int i = 0; i < (int)Complaint.ComplaintStatus.COUNT; i++)
         {
             cb_status.Items.Add((Complaint.ComplaintStatus)i);
-        }    
+        }
     }
 
     public ManageComplaint(Complaint complaint)
@@ -104,7 +103,7 @@ public partial class ManageComplaint : Window
 
                 response = await _httpClient.SubmitComplaintUpdateAsync(_complaint);
             }
-            else if(_complaint.Id == null)
+            else if (_complaint.Id == null)
             {
                 Tenant issuer = new()
                 {

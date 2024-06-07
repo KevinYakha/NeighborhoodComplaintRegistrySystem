@@ -8,7 +8,7 @@ namespace NCRS_API.Controllers;
 public class NCRSController : Controller
 {
     [HttpPost]
-    public async Task<IActionResult> CreateNewComplaint([FromBody]Complaint newComplaint)
+    public async Task<IActionResult> CreateNewComplaint([FromBody] Complaint newComplaint)
     {
         try
         {
@@ -22,7 +22,7 @@ public class NCRSController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateComplaintData([FromBody]Complaint updatedComplaintData)
+    public async Task<IActionResult> UpdateComplaintData([FromBody] Complaint updatedComplaintData)
     {
         try
         {
@@ -40,7 +40,7 @@ public class NCRSController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByName([FromBody]Tenant issuer)
+    public async Task<IActionResult> RetrieveComplaintsByName([FromBody] Tenant issuer)
     {
         try
         {
@@ -60,7 +60,7 @@ public class NCRSController : Controller
 
     [AuthorizeEmployee]
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByPartialName([FromBody]Tenant issuer)
+    public async Task<IActionResult> RetrieveComplaintsByPartialName([FromBody] Tenant issuer)
     {
         try
         {
@@ -80,7 +80,7 @@ public class NCRSController : Controller
 
     [AuthorizeEmployee]
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByWildcardName([FromBody]Tenant issuer)
+    public async Task<IActionResult> RetrieveComplaintsByWildcardName([FromBody] Tenant issuer)
     {
         try
         {
@@ -99,7 +99,7 @@ public class NCRSController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaint([FromQuery]string Id)
+    public async Task<IActionResult> RetrieveComplaint([FromQuery] string Id)
     {
         try
         {
@@ -118,7 +118,7 @@ public class NCRSController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> RetrieveTenantByName([FromBody]Tenant tenant)
+    public async Task<IActionResult> RetrieveTenantByName([FromBody] Tenant tenant)
     {
         try
         {
@@ -137,7 +137,7 @@ public class NCRSController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> RetrieveApartment([FromBody]Apartment apartment)
+    public async Task<IActionResult> RetrieveApartment([FromBody] Apartment apartment)
     {
         try
         {
@@ -157,7 +157,7 @@ public class NCRSController : Controller
 
     [AuthorizeEmployee]
     [HttpPut]
-    public async Task<IActionResult> UpdateComplaintStatus([FromBody]Complaint updatedComplaintStatus)
+    public async Task<IActionResult> UpdateComplaintStatus([FromBody] Complaint updatedComplaintStatus)
     {
         try
         {
@@ -175,7 +175,7 @@ public class NCRSController : Controller
 
     [AuthorizeEmployee]
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByDate([FromBody]DateTime date)
+    public async Task<IActionResult> RetrieveComplaintsByDate([FromBody] DateTime date)
     {
         try
         {
@@ -194,7 +194,7 @@ public class NCRSController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByDateAndName([FromBody]Tuple<DateTime, Tenant> dateAndTime)
+    public async Task<IActionResult> RetrieveComplaintsByDateAndName([FromBody] Tuple<DateTime, Tenant> dateAndTime)
     {
         try
         {
@@ -214,7 +214,7 @@ public class NCRSController : Controller
 
     [AuthorizeEmployee]
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByDateRange([FromBody]Tuple<DateTime, DateTime> dateRange)
+    public async Task<IActionResult> RetrieveComplaintsByDateRange([FromBody] Tuple<DateTime, DateTime> dateRange)
     {
         try
         {
@@ -233,7 +233,7 @@ public class NCRSController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> RetrieveComplaintsByDateRangeAndName([FromBody]Tuple<Tuple<DateTime, DateTime>, Tenant> dateRangeAndIssuer)
+    public async Task<IActionResult> RetrieveComplaintsByDateRangeAndName([FromBody] Tuple<Tuple<DateTime, DateTime>, Tenant> dateRangeAndIssuer)
     {
         try
         {
