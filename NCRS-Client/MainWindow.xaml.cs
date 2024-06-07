@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 using NCRS_API.Data;
 
@@ -129,6 +130,14 @@ namespace NCRS_Client
             if (dp_date_to.SelectedDate < dp_date_from.SelectedDate || !dp_date_from.SelectedDate.HasValue)
             {
                 dp_date_from.SelectedDate = dp_date_to.SelectedDate;
+            }
+        }
+
+        private void tb_name_search_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                btn_Search_Click(sender, null);
             }
         }
     }
