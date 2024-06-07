@@ -1,4 +1,4 @@
-﻿namespace NCRS_API.Data;
+﻿namespace NCRS_Data;
 
 public struct Apartment
 {

@@ -5,7 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-using NCRS_API.Data;
+using NCRS_Data;
 
 namespace NCRS_Client
 {

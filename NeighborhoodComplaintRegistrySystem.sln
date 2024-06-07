@@ -9,7 +9,9 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "NCRS-DB", "NCRS-DB\NCRS-DB.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseHelper", "SQLDatabaseHelper\DatabaseHelper.csproj", "{79F42501-1773-4059-B159-6DB5A31D9701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCRS-Client", "NCRS-Client\NCRS-Client.csproj", "{4945E407-0D5B-47B4-9DEF-C7378EC01B9C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NCRS-Client", "NCRS-Client\NCRS-Client.csproj", "{4945E407-0D5B-47B4-9DEF-C7378EC01B9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NCRS-Data", "NCRS-Data\NCRS-Data.csproj", "{4C34B744-8457-4840-9A38-886E375F6FDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{4945E407-0D5B-47B4-9DEF-C7378EC01B9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4945E407-0D5B-47B4-9DEF-C7378EC01B9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4945E407-0D5B-47B4-9DEF-C7378EC01B9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C34B744-8457-4840-9A38-886E375F6FDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C34B744-8457-4840-9A38-886E375F6FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C34B744-8457-4840-9A38-886E375F6FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C34B744-8457-4840-9A38-886E375F6FDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

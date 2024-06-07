@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 
-using NCRS_API.Data;
+using NCRS_Data;
 
 namespace NCRS_Client;
 

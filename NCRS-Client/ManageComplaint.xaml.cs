@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 
-using NCRS_API.Data;
+using NCRS_Data;
 
 namespace NCRS_Client;
 

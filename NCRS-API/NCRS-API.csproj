@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\NCRS-Data\NCRS-Data.csproj" />
     <ProjectReference Include="..\SQLDatabaseHelper\DatabaseHelper.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-using NCRS_API.Data;
+using NCRS_Data;
 
 namespace NCRS_Client
 {

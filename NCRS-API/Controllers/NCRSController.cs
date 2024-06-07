@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using NCRS_API.Data;
+using NCRS_Data;
 
 namespace NCRS_API.Controllers;
 
