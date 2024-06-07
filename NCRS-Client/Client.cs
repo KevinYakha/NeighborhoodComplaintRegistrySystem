@@ -1,8 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
-using System.Text.Json;
-using System.Text.Json.Nodes;
 
 using NCRS_API.Data;
 
@@ -20,6 +18,25 @@ class Client : HttpClient
             Uri uri = new(_uri + "CreateNewComplaint");
 
             return await http.PostAsJsonAsync(uri, newComplaint);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    internal async Task<HttpResponseMessage> SubmitComplaintUpdateAsync(Complaint complaint)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "UpdateComplaintData");
+
+            return await http.PutAsJsonAsync(uri, complaint);
         }
         catch (HttpRequestException)
         {

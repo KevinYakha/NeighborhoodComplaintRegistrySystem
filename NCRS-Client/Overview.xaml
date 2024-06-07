@@ -16,7 +16,8 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ItemsControl x:Name="ic_complaint_entry">
+                <ItemsControl x:Name="ic_complaint_entry"
+                              MouseLeftButtonUp="ic_complaint_entry_MouseLeftButtonUp">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Black" BorderThickness="0,0,0,1">

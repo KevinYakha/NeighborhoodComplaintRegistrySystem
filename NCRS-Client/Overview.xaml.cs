@@ -249,5 +249,19 @@ namespace NCRS_Client
                 Console.WriteLine(ex.ToString());
             }
         }
+
+        private void ic_complaint_entry_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            try
+            {
+                // TODO: throws an exception when clicking on an "Issuer" is of type (Documents.Run)
+                // gets the current element in the list of complaints and opens it up for editing
+                new ManageComplaint((Complaint)((FrameworkElement)e.OriginalSource).DataContext).Show();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
     }
 }

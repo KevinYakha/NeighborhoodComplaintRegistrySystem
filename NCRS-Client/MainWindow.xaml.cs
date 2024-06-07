@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 using NCRS_API.Data;
@@ -39,7 +36,7 @@ namespace NCRS_Client
 
         private void btn_NewComplaint_Click(object sender, RoutedEventArgs e)
         {
-            MainContentFrame.Content = new NewComplaint();
+            new ManageComplaint().Show();
         }
 
         private void btn_Search_Click(object sender, RoutedEventArgs e)
