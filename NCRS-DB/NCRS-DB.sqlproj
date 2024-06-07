@@ -80,6 +80,8 @@
     <Build Include="Procedures\RETRIEVE_ComplaintsByDateRange.sql" />
     <Build Include="Procedures\RETRIEVE_ComplaintsByDateAndName.sql" />
     <Build Include="Procedures\RETRIEVE_ComplaintsByDateRangeAndName.sql" />
+    <Build Include="Procedures\RETRIEVE_ComplaintsByPartialName.sql" />
+    <Build Include="Procedures\RETRIEVE_ComplaintsByWildcardName.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NCRS-DB.refactorlog" />

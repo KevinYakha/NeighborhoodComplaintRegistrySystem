@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NCRS_Client"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
+        WindowStartupLocation="CenterScreen"
         Title="NCRS" Height="600" Width="700"
         MinWidth="700" MinHeight="100">
     <Grid>

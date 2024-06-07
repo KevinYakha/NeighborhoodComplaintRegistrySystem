@@ -31,6 +31,9 @@ namespace NCRS_Client
 
         private void btn_Refresh_Click(object sender, RoutedEventArgs e)
         {
+            tb_name_search.Clear();
+            dp_date_from.SelectedDate = null;
+            dp_date_to.SelectedDate = null;
             MainContentFrame.Content = new Overview();
         }
 
@@ -39,35 +42,53 @@ namespace NCRS_Client
             MainContentFrame.Content = new NewComplaint();
         }
 
-        private async void btn_Search_Click(object sender, RoutedEventArgs e)
+        private void btn_Search_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                // search only by name
                 if (tb_name_search.Text.Length > 0 && !dp_date_from.SelectedDate.HasValue && !dp_date_to.SelectedDate.HasValue)
                 {
                     string[] nameToSearch = tb_name_search.Text.Split(' ');
-                    Tenant issuer = new() { FirstName = nameToSearch[0], LastName = nameToSearch[1] };
+
+                    // do wildcard search if only one string was provided
+                    if (nameToSearch.Length == 1)
+                    {
+                        MainContentFrame.Content = new Overview(nameToSearch[0]);
+                        return;
+                    }
+
+                    // otherwise do a search for a partial fullname match
+                    Tenant issuer = new()
+                    {
+                        FirstName = nameToSearch[0],
+                        LastName = nameToSearch.Length > 1 ? nameToSearch[1] : ""
+                    };
 
                     MainContentFrame.Content = new Overview(issuer);
                 }
+                // search by date to
                 else if (tb_name_search.Text.Length == 0 && dp_date_from.SelectedDate == dp_date_to.SelectedDate)
                 {
                     DateTime date = (DateTime)dp_date_to.SelectedDate;
 
                     MainContentFrame.Content = new Overview(date);
                 }
+                // search by date range
                 else if (tb_name_search.Text.Length == 0 && dp_date_from.SelectedDate.HasValue && dp_date_to.SelectedDate.HasValue)
                 {
                     Tuple<DateTime, DateTime> dateRange = new((DateTime)dp_date_from.SelectedDate, (DateTime)dp_date_to.SelectedDate);
 
                     MainContentFrame.Content = new Overview(dateRange);
                 }
+                // search by date from date to today
                 else if (tb_name_search.Text.Length == 0 && dp_date_from.SelectedDate.HasValue && !dp_date_to.SelectedDate.HasValue)
                 {
                     Tuple<DateTime, DateTime> dateRange = new((DateTime)dp_date_from.SelectedDate, DateTime.Today);
 
                     MainContentFrame.Content = new Overview(dateRange);
                 }
+                // search by date and name
                 else if (tb_name_search.Text.Length > 0 && dp_date_from.SelectedDate == dp_date_to.SelectedDate)
                 {
                     DateTime date = (DateTime)dp_date_to.SelectedDate;
@@ -76,6 +97,7 @@ namespace NCRS_Client
 
                     MainContentFrame.Content = new Overview(date, issuer);
                 }
+                // search by date range and name
                 else if (tb_name_search.Text.Length > 0 && dp_date_from.SelectedDate.HasValue && dp_date_to.SelectedDate.HasValue)
                 {
                     Tuple<DateTime, DateTime> dateRange = new((DateTime)dp_date_from.SelectedDate, (DateTime)dp_date_to.SelectedDate);
@@ -84,6 +106,7 @@ namespace NCRS_Client
 
                     MainContentFrame.Content = new Overview(dateRange, issuer);
                 }
+                // search by date from date to today and name
                 else if (tb_name_search.Text.Length > 0 && dp_date_from.SelectedDate.HasValue && !dp_date_to.SelectedDate.HasValue)
                 {
                     Tuple<DateTime, DateTime> dateRange = new((DateTime)dp_date_from.SelectedDate, DateTime.Today);
@@ -105,6 +128,7 @@ namespace NCRS_Client
 
         private void dp_date_to_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+            // make sure date from can't be higher than date to
             if(dp_date_to.SelectedDate < dp_date_from.SelectedDate || !dp_date_from.SelectedDate.HasValue)
             {
                 dp_date_from.SelectedDate = dp_date_to.SelectedDate;

@@ -34,6 +34,15 @@ namespace NCRS_Client
             CreateComplaintTableData(issuer);
         }
 
+        public Overview(string name)
+        {
+            InitializeComponent();
+            statusLine.Add(new(tb_loading_content, HttpStatusCode.Processing));
+            statusLine.Add(new(tb_loading_failure, HttpStatusCode.NoContent));
+            statusLine.Add(new(tb_loading_timeout, HttpStatusCode.RequestTimeout));
+            CreateComplaintTableData(name);
+        }
+
         public Overview(DateTime date)
         {
             InitializeComponent();
@@ -112,7 +121,30 @@ namespace NCRS_Client
         {
             try
             {
-                HttpResponseMessage response = await _httpClient.RetrieveComplaintsByName(issuer);
+                HttpResponseMessage response = await _httpClient.RetrieveComplaintsByPartialName(issuer);
+
+                if (!response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NoContent)
+                {
+                    AdjustStatusLine(statusLine, response.StatusCode);
+                    return;
+                }
+
+                List<Complaint> complaints = await response.Content.ReadFromJsonAsync<List<Complaint>>();
+                ic_complaint_entry.ItemsSource = complaints;
+                AdjustStatusLine(statusLine, response.StatusCode);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        private async void CreateComplaintTableData(string name)
+        {
+            try
+            {
+                Tenant issuer = new() { FirstName = name };
+                HttpResponseMessage response = await _httpClient.RetrieveComplaintsByWildcardName(issuer);
 
                 if (!response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.NoContent)
                 {

@@ -168,6 +168,37 @@ public static class NCRS_DB
         }
     }
 
+    public static async Task<List<Complaint>> RetrieveComplaintsByPartialNameAsync(Tenant issuer)
+    {
+        try
+        {
+            SqlCommand command = new("RETRIEVE_ComplaintsByPartialName");
+            command.Parameters.AddWithValue("FirstName", issuer.FirstName);
+            command.Parameters.AddWithValue("LastName", issuer.LastName);
+
+            return await RetrieveComplaintsAsync(command);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public static async Task<List<Complaint>> RetrieveComplaintsByWildcardNameAsync(Tenant issuer)
+    {
+        try
+        {
+            SqlCommand command = new("RETRIEVE_ComplaintsByWildcardName");
+            command.Parameters.AddWithValue("Name", issuer.FirstName);
+
+            return await RetrieveComplaintsAsync(command);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public static async Task<List<Complaint>> RetrieveComplaintsByDateAsync(DateTime creationDate)
     {
         try

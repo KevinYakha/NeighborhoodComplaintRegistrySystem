@@ -28,6 +28,7 @@ public class NCRSController : Controller
         {
             Complaint complaintToUpdate = await NCRS_DB.RetrieveComplaintAsync(updatedComplaintData.Id);
             complaintToUpdate.Description = updatedComplaintData.Description;
+            complaintToUpdate.Status = updatedComplaintData.Status;
 
             return Ok(await NCRS_DB.UpdateComplaintAsync(complaintToUpdate));
         }
@@ -44,6 +45,46 @@ public class NCRSController : Controller
         try
         {
             List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByNameAsync(issuer);
+            if (retrievedComplaints == null || retrievedComplaints.Count == 0)
+            {
+                return NoContent();
+            }
+            return Ok(retrievedComplaints);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [AuthorizeEmployee]
+    [HttpGet]
+    public async Task<IActionResult> RetrieveComplaintsByPartialName([FromBody]Tenant issuer)
+    {
+        try
+        {
+            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByPartialNameAsync(issuer);
+            if (retrievedComplaints == null || retrievedComplaints.Count == 0)
+            {
+                return NoContent();
+            }
+            return Ok(retrievedComplaints);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"ERROR START\n{ex}\nERROR END");
+            return BadRequest(ex);
+        }
+    }
+
+    [AuthorizeEmployee]
+    [HttpGet]
+    public async Task<IActionResult> RetrieveComplaintsByWildcardName([FromBody]Tenant issuer)
+    {
+        try
+        {
+            List<Complaint> retrievedComplaints = await NCRS_DB.RetrieveComplaintsByWildcardNameAsync(issuer);
             if (retrievedComplaints == null || retrievedComplaints.Count == 0)
             {
                 return NoContent();

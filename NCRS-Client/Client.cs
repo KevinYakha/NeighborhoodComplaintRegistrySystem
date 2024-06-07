@@ -119,6 +119,52 @@ class Client : HttpClient
         }
     }
 
+    public async Task<HttpResponseMessage> RetrieveComplaintsByPartialName(Tenant issuer)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaintsByPartialName");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            message.Headers.Add("Token", "EmployeeToken");
+            message.Content = JsonContent.Create(issuer);
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task<HttpResponseMessage> RetrieveComplaintsByWildcardName(Tenant issuer)
+    {
+        try
+        {
+            HttpClient http = new();
+            Uri uri = new(_uri + "RetrieveComplaintsByWildcardName");
+
+            HttpRequestMessage message = new(HttpMethod.Get, uri);
+            message.Headers.Add("Token", "EmployeeToken");
+            message.Content = JsonContent.Create(issuer);
+
+            return await http.SendAsync(message);
+        }
+        catch (HttpRequestException)
+        {
+            return new(HttpStatusCode.RequestTimeout);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     public async Task<HttpResponseMessage> RetrieveComplaintsByDate(DateTime date)
     {
         try
